@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StudyTrack is a simple student task and study planner.">
+  <title>StudyTrack | Student Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="StudyTrack home"><span class="brand-mark">S</span><span>StudyTrack</span></a>
+      <p class="nav-label">WORKSPACE</p>
+      <button class="nav-item active" data-view="all"><span>▦</span> Overview</button>
+      <button class="nav-item" data-view="today"><span>◷</span> Today's tasks</button>
+      <button class="nav-item" data-view="upcoming"><span>▤</span> Upcoming</button>
+      <button class="nav-item" data-view="completed"><span>✓</span> Completed</button>
+      <div class="sidebar-bottom">
+        <div class="tip-card">
+          <span class="tip-icon">✦</span>
+          <strong>Small steps add up.</strong>
+          <p>Focus on one task at a time. Progress is progress.</p>
+        </div>
+        <p class="sidebar-foot">MADE FOR STUDENTS · 2026</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="today-label">YOUR STUDY SPACE</p>
+          <h1 id="greeting">Good evening 👋</h1>
+          <p class="subtitle">Plan your day. Make progress. Keep going.</p>
+        </div>
+        <button class="primary-btn" id="open-modal"><span>＋</span> Add a task</button>
+      </header>
+
+      <section class="stats-grid" aria-label="Study statistics">
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-icon lavender">▦</span><span class="stat-note">All tasks</span></div>
+          <strong class="stat-number" id="total-count">0</strong>
+          <span class="stat-caption">Tasks in your planner</span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-icon mint">✓</span><span class="stat-note">Completed</span></div>
+          <strong class="stat-number" id="completed-count">0</strong>
+          <span class="stat-caption">Tasks finished</span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-icon peach">◷</span><span class="stat-note">Pending</span></div>
+          <strong class="stat-number" id="pending-count">0</strong>
+          <span class="stat-caption">Still to work on</span>
+        </article>
+        <article class="stat-card progress-stat">
+          <div class="stat-top"><span class="stat-icon blue">↗</span><span class="stat-note">Your progress</span></div>
+          <strong class="stat-number"><span id="progress-percent">0</span><small>%</small></strong>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="stat-caption">Keep the momentum going</span>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel tasks-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">STAY ON TRACK</p><h2 id="task-heading">Your tasks</h2></div>
+            <select id="subject-filter" aria-label="Filter tasks by subject">
+              <option value="all">All subjects</option>
+              <option>C Programming</option><option>Mathematics</option><option>Physics</option>
+              <option>Data Structures</option><option>Other</option>
+            </select>
+          </div>
+          <div class="task-list" id="task-list"></div>
+          <div class="empty-state" id="empty-state">
+            <div class="empty-illustration">✎</div>
+            <h3>Nothing on your list yet</h3>
+            <p>Add your first task and make a plan for today.</p>
+            <button class="secondary-btn" id="empty-add">＋ Create a task</button>
+          </div>
+        </div>
+
+        <div class="right-column">
+          <section class="panel focus-panel">
+            <div class="panel-heading"><div><p class="eyebrow">FOCUS MODE</p><h2>Study timer</h2></div><span class="timer-badge">25 / 5</span></div>
+            <p class="focus-description">One focused session can make a difference. Put distractions away and begin.</p>
+            <div class="timer-ring"><div><strong id="timer-display">25:00</strong><span id="timer-mode">FOCUS SESSION</span></div></div>
+            <div class="timer-controls">
+              <button class="primary-btn timer-start" id="timer-toggle">Start focus</button>
+              <button class="icon-btn" id="timer-reset" aria-label="Reset timer" title="Reset timer">↺</button>
+            </div>
+            <p class="timer-hint" id="timer-hint">You've got this. Start when you're ready.</p>
+          </section>
+          <section class="panel subjects-panel">
+            <div class="panel-heading"><div><p class="eyebrow">YOUR WORKLOAD</p><h2>By subject</h2></div></div>
+            <div id="subject-breakdown" class="subject-breakdown"></div>
+          </section>
+        </div>
+      </section>
+      <footer class="page-footer">StudyTrack <span>•</span> Built to make student life a little simpler.</footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="task-modal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-heading"><div><p class="eyebrow">MAKE A PLAN</p><h2 id="modal-title">Add a new task</h2></div><button class="icon-btn" id="close-modal" aria-label="Close dialog">×</button></div>
+      <form id="task-form">
+        <label for="task-title">Task name</label>
+        <input id="task-title" name="title" placeholder="e.g. Revise pointers in C" maxlength="90" required>
+        <div class="form-row">
+          <div><label for="task-subject">Subject</label><select id="task-subject" name="subject"><option>C Programming</option><option>Mathematics</option><option>Physics</option><option>Data Structures</option><option>Other</option></select></div>
+          <div><label for="task-priority">Priority</label><select id="task-priority" name="priority"><option>Medium</option><option>High</option><option>Low</option></select></div>
+        </div>
+        <label for="task-date">Due date</label>
+        <input id="task-date" name="date" type="date" required>
+        <div class="modal-actions"><button type="button" class="secondary-btn" id="cancel-modal">Cancel</button><button class="primary-btn" type="submit">Save task</button></div>
+      </form>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
